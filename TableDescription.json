@@ -1,5 +1,5 @@
 {
-    "TableName": "TestTable2",
+    "TableName": "TestTable7",
     "KeySchema": [
         {
             "KeyType": "HASH",

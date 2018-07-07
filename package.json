@@ -1,15 +1,19 @@
 {
-  "name": "createtabletest",
+  "name": "dynamodb-quick",
   "version": "1.0.0",
-  "description": "",
+  "description": "The AWS DynamoDB CLI seems to not accept the JSON that it spits out on the describe table CLI command, this takes that same JSON and creates a new dynamoDB table.",
   "main": "dynamoDbTableCreate.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dynamoDbTableCreate.js"
   },
-  "author": "",
+  "bin": {
+    "dynamodb-quick-table": "dynamoDbTableCreate.js"
+  },
+  "author": "ro5635",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.270.1"
+    "aws-sdk": "^2.270.1",
+    "yargs": "^12.0.1"
   }
 }

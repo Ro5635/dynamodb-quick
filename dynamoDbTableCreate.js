@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 /**
 * Create DynamoDB Table via SDK
 *
@@ -13,15 +14,11 @@
 
 const fs = require('fs');
 const util = require('util');
+const argv = require('yargs').argv;
 const readFile = util.promisify(fs.readFile)
 const AWS = require("aws-sdk");
 
-AWS.config.update({
-  region: "eu-west-1",
-  endpoint: "http://localhost:8000"
-});
-
-const dynamodb = new AWS.DynamoDB();
+const AWS_REGION_DEFAULT = 'eu-west-1';
 
 
 /**
@@ -54,19 +51,19 @@ const createTable = async (tableDescriptionFilePath) => {
     try {
 
         // Basic validation
-        if (!tableDescriptionFilePath) reject(new Error('no table description file path passed.'));
+        if (!tableDescriptionFilePath) throw new Error('no table description file path passed.');
 
         const tableDescription = await getTableDescription(tableDescriptionFilePath);
 
         // Try to create the DB table
         const dynamoDbResp =  await dynamodb.createTable(tableDescription).promise();
 
-        console.log('Created DynanmoDB Table');
-        console.log(dynamoDbResp);
+        console.log('Created DynanmoDB Table \n\r\n\r');
+        console.log(JSON.stringify(dynamoDbResp, null, 2));
 
 
     } catch (err) {
-        console.log('Failed to create new DynamoDB table');
+        console.log('Failed to create new DynamoDB table \n\r\n\r');
         console.log(err);
     }
 
@@ -74,8 +71,34 @@ const createTable = async (tableDescriptionFilePath) => {
 
 
 
+//
+//  Extract the config from the args array, setup AWS-SDK then call the create table function
+//
+//
+
+
+
 // Extract the filepath from the args
 const filePath = process.argv[2];
+
+let AWSConfig = {};
+
+if(argv.region) {
+    AWSConfig.region = argv.region;
+
+} else {
+    AWSConfig.region = AWS_REGION_DEFAULT;
+}
+
+
+if (argv.endpoint) {
+    AWSConfig.endpoint = argv.endpoint 
+}
+
+// Initilise AWS
+AWS.config.update(AWSConfig);
+// Initilise DynamoDB 
+const dynamodb = new AWS.DynamoDB();
 
 // Create table
 createTable(filePath);
