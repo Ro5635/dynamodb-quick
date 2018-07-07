@@ -1,0 +1,69 @@
+{
+    "TableName": "TestTable2",
+    "KeySchema": [
+        {
+            "KeyType": "HASH",
+            "AttributeName": "MachineID"
+        },
+        {
+            "KeyType": "RANGE",
+            "AttributeName": "MachineType"
+        }
+    ],
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "MachineID",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "MachineSaleState",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "MachineType",
+            "AttributeType": "S"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "MachineType-index",
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 1,
+                "ReadCapacityUnits": 1
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "MachineType"
+                }
+            ]
+        },
+        {
+            "IndexName": "MachineType-MachineSaleState-index2",
+            "Projection": {
+                "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 1,
+                "ReadCapacityUnits": 1
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "MachineType"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "MachineSaleState"
+                }
+            ]
+        }
+    ],
+    "ProvisionedThroughput": {
+        "WriteCapacityUnits": 1,
+        "ReadCapacityUnits": 1
+    }
+}
