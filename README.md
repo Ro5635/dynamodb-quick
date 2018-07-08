@@ -18,6 +18,8 @@ This operates as a CLI, install via npm:
 ``` bash
 npm install -g dynamodb-quick
 ```
+Package published to npm at:
+https://www.npmjs.com/package/dynamodb-quick
 
 
 ### Use case:
