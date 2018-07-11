@@ -1,6 +1,8 @@
 # dynamodb-quick
 
-Creates a table in dynamoDB from a supplied JSON file conforming to the format of the dynamoDB describe table response. The AWS CLI seems to not accept the same JSON that dynamoDB pumps out, this does.
+I would recormend using the aws-cli directly for this, it allows you to provide referance to a JSON file to define the table structure.
+
+Creates a table in dynamoDB from a supplied JSON file conforming to the format of the dynamoDB describe table response. This uses the AWS-SDK vs using the cli.
 
 ## Example use:
 
